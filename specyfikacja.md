@@ -26,7 +26,7 @@
 |Poprawna obsługa modułu GPS             | Wypisanie danych GPS na wcześniej przetesotwany ekran|
 |Odczywanie pozycji GPS                  | Wyjście w teren i sprawdzenie działania modułu z rzeczywistym, sprawnym GPS|
 |Obliczenia                              | Sprawdzenie poprawności obliczeń poprzez przekazanie systemowi wcześniej spreparowanych i przeliczonych danych, porównanie wyników|
-|Bateria                                 | Sprawdzenie długości działania urządzenia w najbardziej pesymistycznym scenariuszu, czyli przy najczęstszym odświeżaniu modułu GPS|
+|Bateria                               | Sprawdzenie długości działania urządzenia w najbardziej pesymistycznym scenariuszu, czyli przy najczęstszym odświeżaniu modułu GPS|
 |Poprawna komunikacja z modułem Bluetooth| Wysłanie danych z głównego urządzenia na moduł bluetooth 
 |Poprawne przesyłanie danych po Bluetooth| Sprawdzenie poprawności wcześniej wysłanych danych poprzez aplikację pozwalającą na czytanie danych z bluetooth
 |Poprawna obsługa danych w pamięci       | Zapisanie, odczytanie i sprawdzenie poprawności danych 
