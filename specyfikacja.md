@@ -43,9 +43,14 @@
 
 ## Schemat blokowy
 
-## Przypisanie funkcjonalności do sprzętu
-
 ## Wstępny schedule
+
+| Data | Zadanie |
+|------|---------|
+|||
+
+## Analiza / Rozwiązanie
+- przedstawienie schematu ideowego / blokowego
 
 ## Notatki
 
@@ -56,4 +61,11 @@
 - poor but realistic schedule of creating projects
 - functions should be assigned to hardware
 - create block diagram
+-E ink jest dobry jeśli nasza treść sie rzadko zmienia 
+- uważać na zasilanie (napisać na schemacie napięcia) tak aby wszystko było odpowiednio zasilone
+- można opisać RX TX
+-oznaczając numery nóżek trzeba przyjąć odpowiedni standard (czyje RX czyje TX) np RT i TX z bluetooth BT_RX BT_TX
+- przetwornica buckboost jeśli nasze zasilanie z akumulatora może oscylować wokół 3,3, może zejść poniżej 3,3 i step down sobie nie poradzi
+- przygotować jeden dwa slajdy, schematy blokowe, można wpisać hardware ale nie musi być, na schematach opisywać, pokazywać funkcje
+
 
