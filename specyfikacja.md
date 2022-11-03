@@ -69,3 +69,4 @@
 - przygotować jeden dwa slajdy, schematy blokowe, można wpisać hardware ale nie musi być, na schematach opisywać, pokazywać funkcje
 
 
+![image](https://user-images.githubusercontent.com/88560899/199722592-fd2eb058-cdfc-40b0-ac53-511aaf10b4da.png)
