@@ -46,8 +46,14 @@
 ## Wstępny schedule
 
 | Data | Zadanie |
-|------|---------|
-|||
+|------|---------| 
+|17.11.2022| Znalezienie odpowiedniego sprzętu i jego ewentualny zakup.|
+|24.11.2022| Dopasowanie odpowiedniej baterii i zasilania |
+|1.12.2022 | Odpowiednie oprogramowania wyświetlacza |
+|8.12.2022 | Odpowiednie oprogramowanie modułu GPS |
+|15.12.2022| Stworzenie algorytmów wyliczających dane i dostosowanie wyświetlacza|
+|22.12.2022| Oprogramowanie odpowiedniego działania modułu Bluetooth |
+|Do deadline projektu| Dalsze testy, poprawki i usprawnianie działania |
 
 ## Analiza / Rozwiązanie
 - przedstawienie schematu ideowego / blokowego
