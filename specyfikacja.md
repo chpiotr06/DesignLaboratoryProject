@@ -76,4 +76,15 @@
 - przetwornica buckboost jeśli nasze zasilanie z akumulatora może oscylować wokół 3,3, może zejść poniżej 3,3 i step down sobie nie poradzi
 - przygotować jeden dwa slajdy, schematy blokowe, można wpisać hardware ale nie musi być, na schematach opisywać, pokazywać funkcje
 
+10.11.2022
+- Przeanalizować pod kątem podłączania urządzeń, odpowienie wartości prądów, napięć, ilość pinów, progi napięicowe
+- zadbać o odpowienią dokumentację, odpowiednie piny podpowiednio połączone, jednoznaczna dokumentacja
+- dobrze odrazu zasilić na 3,3V zasilanie np tym "większym paluszkiem - ogniwem bateryjnym".
+- Zadbać o odpowiednie działanie przetwornicy 
+- Działanie w nocy, podświetlanie ekranu 
+- Zadbać o sterowanie
 
+TODO: 
+- napisać maila do prowadzącego z zapytaniem o dostępny sprzęt do realizacji projektu 
+- dać prowadzącemu link do githuba
+- schematy ideowe (już z urządzeniami) 2 tygodnie
