@@ -42,6 +42,8 @@
 |Main board| Płytka powinna być na tyle szybka żeby być w stanie wykonać obliczenia na czas. Pownna też mieć na tyle dużo pinów aby dało się podpiąć do niej wszystkie urządzenia i zapewnić odpowiednią komuniakcję 
 
 ## Schemat blokowy
+![image](https://raw.githubusercontent.com/chpiotr06/DesignLaboratoryProject/dev/schemt_blokowy.svg)
+
 
 ## Wstępny schedule
 
@@ -75,4 +77,3 @@
 - przygotować jeden dwa slajdy, schematy blokowe, można wpisać hardware ale nie musi być, na schematach opisywać, pokazywać funkcje
 
 
-![image](https://user-images.githubusercontent.com/88560899/199722592-fd2eb058-cdfc-40b0-ac53-511aaf10b4da.png)
