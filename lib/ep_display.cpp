@@ -2,14 +2,17 @@
 #include "pico/stdlib.h"
 #include <stdio.h>
 #include <string.h>
-#include <iostream>
 
-#define MISO 
-#define CS
-#define SCLK
-#define MOSI 
+
+#define MISO 21
+#define CS 19
+#define SCLK 18 
+#define MOSI 17
 
 #define SPI_PORT spi0
+
+#define CMD_DEEP_SLEEP_MODE 0x10
+
 
 class EP_display{
     public:
