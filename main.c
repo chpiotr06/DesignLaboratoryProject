@@ -3,7 +3,6 @@
 #include "hardware/uart.h"
 
 
-
 // ----------------------BLUETOOTH --------------------
 #define BLUETOOTH_UART_ID uart0
 #define BAUD_RATE 9600
@@ -12,9 +11,8 @@
 #define DATA_BITS 8
 #define STOP_BITS 1
 #define PARITY  UART_PARITY_NONE
-
-#define BUF_LEN         0x100
 // ----------------------------------------------------------------
+
 
 //----------------------GPS------------------------
 #define GPS_UART_ID uart1
@@ -22,16 +20,21 @@ char uartBuffer[512];
 
 #define GPS_RX_PIN 3 
 #define GPS_TX_PIN 4
-
-
 //----------------------------------------------------------------
 
 #define led_pin 25
 
+void bluetooth_send(const char *data);
 
-
-
-
+void gps_rx_handler() {
+    while (uart_is_readable(GPS_UART_ID)) {
+        uint8_t ch = uart_getc(GPS_UART_ID);
+        // Can we send it back?
+        if (uart_is_writable(BLUETOOTH_UART_ID)) {
+            bluetooth_send(&ch);
+        }
+    }
+}
 
 
 void bluetoothInit() {
@@ -61,16 +64,30 @@ void bluetooth_send(const char *data ) {
     uart_puts(BLUETOOTH_UART_ID, data );
 }
 
+void gps_irq() {
+    gpio_set_function(GPS_RX_PIN, GPIO_FUNC_UART);
+    gpio_set_function(GPS_TX_PIN, GPIO_FUNC_UART);
+
+    int __unused actual = uart_set_baudrate(GPS_UART_ID, BAUD_RATE);
+    // uart_set_hw_flow(GPS_UART_ID, false, false);
+    // uart_set_format(GPS_UART_ID, DATA_BITS, STOP_BITS, PARITY);
+    uart_set_fifo_enabled(GPS_UART_ID, false);
+
+    int UART_IRQ =  UART1_IRQ;
+
+    irq_set_exclusive_handler(UART_IRQ, gps_rx_handler);
+    irq_set_enabled(UART_IRQ, true);
+
+    uart_set_irq_enables(GPS_UART_ID, true, false);
+}
 
 void gps_init()  {
 
     uart_init(GPS_UART_ID, 9600);
  
-    gpio_set_function(GPS_RX_PIN, GPIO_FUNC_UART);
-    gpio_set_function(GPS_TX_PIN, GPIO_FUNC_UART);
+    gps_irq();
 
-
-
+    bluetooth_send("Hello GPS");
 }
 
 void read_GPS() {
@@ -84,14 +101,12 @@ void read_GPS() {
         }
 
     } else {
-        bluetooth_send("urat disabled \r\n");
+        bluetooth_send("uart disabled \r\n");
     }
 
     bluetooth_send("Fucked up here");
     for(int i = 0; i < 512 ; i++) {
-        char * ptr;
-        ptr = &uartBuffer[i];
-        bluetooth_send(ptr);
+        bluetooth_send(&uartBuffer[i]);
     }
     bluetooth_send("\n");
 
@@ -118,7 +133,7 @@ int main() {
 
     while (true) {
 
-        read_GPS();        
+        // read_GPS();        
 
         gpio_put(led_pin, true);
         bluetooth_send("Led ON!\r\n");
