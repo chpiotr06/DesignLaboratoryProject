@@ -38,6 +38,12 @@ void setup() {
     Serial.print(F("e-Paper init failed"));
     return;
   }
+
+  epd.ClearFrameMemory(0xFF);   // bit set = white, bit reset = black
+  epd.DisplayFrame();
+  epd.ClearFrameMemory(0xFF);   // bit set = white, bit reset = black
+  epd.DisplayFrame();
+  
   if (epd.Init(lut_partial_update) != 0) {
     Serial.print(F("e-Paper init failed"));
     return;
@@ -51,7 +57,7 @@ void setup() {
 void loop() {
 
 
-  dist = gps_dist(gps.location.latitude, gps.location.longitude, prev_lon, prev_lat);
+//  dist = gps_dist(gps.location.latitude, gps.location.longitude, prev_lon, prev_lat);
 
   time_now_s = (millis() - time_start_ms) / 1000;
 
@@ -123,9 +129,9 @@ void loop() {
 
 
   }
-
-  if (routeIsRecorded)
-    addRoutePoint(gps.location.latitude, gps.location.longitude);
+  
+//  if (routeIsRecorded)
+//    addRoutePoint(gps.location.latitude, gps.location.longitude);
 
 
   prev_lon = gps.location.longitude;
@@ -139,21 +145,21 @@ void loop() {
       case '!':
         resetFunc();
         break;
-      case 'r':
-        eraseRoute();
-        break;
-      case 's':
-        routeIsRecorded = true;
-        break;
-      case 'f':
-        routeIsRecorded = false;
-        break;
-      case 'p':
-        printRoute();
-        break;
-      case 'c': 
-        calculateCalories();
-        break;
+//      case 'r':
+//        eraseRoute();
+//        break;
+//      case 's':
+//        routeIsRecorded = true;
+//        break;
+//      case 'f':
+//        routeIsRecorded = false;
+//        break;
+//      case 'p':
+//        printRoute();
+//        break;
+//      case 'c': 
+//        calculateCalories();
+//        break;
       default:
         break;
     }
