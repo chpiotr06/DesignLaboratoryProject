@@ -16,15 +16,21 @@ SoftwareSerial ss(2, 3); // RX, TX
 VMA430_GPS gps(&ss);
 
 double dist = 0, avg_spd = 0, lon = 0, lat = 0, prev_lon = 0, prev_lat = 0;
+int ghours,gminutes,gseconds;
 
-void(*resetFunc) (void) = 0;
+void resetFunc() {
+  pinMode(6, OUTPUT);
+  digitalWrite(6, HIGH);
+}
 
-int word_address = 0;
 bool routeIsRecorded = false;
 
 bool UBX_packet_ready = 0;
 
 void setup() {
+
+  
+  
   // put your setup code here, to run once:
   Serial.begin(9600);
   Serial.println(F("Hello user!\n"));
@@ -38,6 +44,14 @@ void setup() {
 }
 
 void loop() {
+
+  time_now_s = (millis() - time_start_ms) / 1000;
+
+  ghours   = time_now_s / 60 / 60;
+  gminutes = time_now_s / 60 % 60; 
+  gseconds = time_now_s % 60 % 60;
+
+  
   if (gps.getUBX_packet()) // If a valid GPS UBX data packet is received...
   {
     lat = gps.location.latitude;
@@ -45,16 +59,23 @@ void loop() {
   }
 
   if(lon == 0 && lat == 0)
-    Serial.println("Waiting for GPS signal...");
+    // For debugging purposes
+    if (gseconds % 30 >= 28 ){
+      Serial.println("\n\nsWaiting for GPS signal...");
+      bluetoothPrintData();
+    }
   else {
-    dist = gps_dist(lat, lon, prev_lat, prev_lon);
-    epaperPrint();
-    bluetoothPrintData();
-
-  //  if (routeIsRecorded)
-  //    addRoutePoint(lat, lon);
+    if (gseconds % 10 >= 8 ){
+      dist = gps_dist(lat, lon, prev_lat, prev_lon);
+      epaperPrint();
+      bluetoothPrintData();
+  
+      if (routeIsRecorded)
+        addRoutePoint(lat, lon, ghours, gminutes, gseconds);
+    }
   }
 
+  
   prev_lon = lon;
   prev_lat = lat;
 
@@ -62,23 +83,24 @@ void loop() {
     char code = Serial.read();
     switch (code) {
       case '!':
-        resetFunc();
+      resetFunc();
+      break;
+      case 'r':
+        eraseRoute();
+        routeIsRecorded = false;
         break;
-            case 'r':
-              eraseRoute();
-              break;
-            case 's':
-              routeIsRecorded = true;
-              break;
-            case 'f':
-              routeIsRecorded = false;
-              break;
-            case 'p':
-              printRoute();
-              break;
-            case 'c':
-              calculateCalories();
-              break;
+      case 's':
+        routeIsRecorded = true;
+        break;
+      case 'f':
+        routeIsRecorded = false;
+        break;
+      case 'p':
+        printRoute();
+        break;
+      case 'c':
+        calculateCalories();
+        break;
       default:
         break;
     }
@@ -147,7 +169,6 @@ void epaperPrint() {
   if (UBX_packet_ready) {
 
 
-    time_now_s = (millis() - time_start_ms) / 1000;
 
     char time_string[] = "Time: 00:00:00";
     char distance[] = "Lon:        N";
@@ -158,6 +179,11 @@ void epaperPrint() {
     time_string[10] = time_now_s / 60 % 10 + '0';
     time_string[12] = time_now_s % 60 / 10 + '0';
     time_string[13] = time_now_s % 60 % 10 + '0';
+//    time_string[9] = ghours + '0';
+//    time_string[10] = time_now_s / 60 % 10 + '0';
+//    time_string[12] = gminutes + '0';
+//    time_string[13] = time_now_s % 60 % 10 + '0';
+
 
     dtostrf(lat, 2, 5, &distance[5]);
     dtostrf(lon, 2, 5, &azimuth[5]);
